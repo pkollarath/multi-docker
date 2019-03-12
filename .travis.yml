@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t pkollarath/multi-docker-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run pkollarath/multi-docker npm test -- --coverage
+
+after_success:
+  - docker build -t pkollarath/multi-client  ./client
+  - docker build -t pkollarath/multi-nginx  ./nginx
+  - docker build -t pkollarath/multi-server  ./server
+  - docker build -t pkollarath/multi-worker  ./worker
+  #  Docker CLI login
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push
+
+  - docker push pkollarath/multi-client
+  - docker push pkollarath/multi-nginx
+  - docker push pkollarath/multi-server
+  - docker push pkollarath/multi-worker
