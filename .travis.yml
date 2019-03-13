@@ -9,10 +9,10 @@ script:
   - docker run pkollarath/multi-docker-test npm test -- --coverage
 
 after_success:
-  - docker build -t pkollarath/multi-client  ./client
-  - docker build -t pkollarath/multi-nginx  ./nginx
-  - docker build -t pkollarath/multi-server  ./server
-  - docker build -t pkollarath/multi-worker  ./worker
+  - docker build -t pkollarath/multi-client ./client
+  - docker build -t pkollarath/multi-nginx ./nginx
+  - docker build -t pkollarath/multi-server ./server
+  - docker build -t pkollarath/multi-worker ./worker
   #  Docker CLI login
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
