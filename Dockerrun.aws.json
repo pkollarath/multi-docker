@@ -27,6 +27,7 @@
 		"image": "pkollarath/multi-nginx",
 		"hostname": "nginx",
 		"essential": true,
+		"memoryReservation": 512
 		"portMappings": [
 			{ "hostPort": 80,
 			  "containerPort": 80	
